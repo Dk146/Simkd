@@ -3,6 +3,7 @@ from cProfile import label
 
 import sys
 import time
+from models.resnet import resnet38x4
 import torch
 from .util import AverageMeter, accuracy, reduce_tensor
 
@@ -74,6 +75,9 @@ def train_distill(epoch, train_loader, module_list, criterion_list, optimizer, o
 
     model_s = module_list[0]
     model_t = module_list[-1]
+    model_cls = resnet38x4(100)
+    model_path = "./save/teachers/models/resnet38x4_vanilla/resnet38x4_best"
+    model_cls.load_state_dict(torch.load(model_path, map_location={'cuda:0': 'cuda:0'})['model'])
 
     batch_time = AverageMeter()
     losses = AverageMeter()
@@ -109,7 +113,7 @@ def train_distill(epoch, train_loader, module_list, criterion_list, optimizer, o
             feat_t, logit_t = model_t(images, is_feat=True)
             feat_t = [f.detach() for f in feat_t]
 
-        cls_t = model_t.module.get_feat_modules()[-1] if opt.multiprocessing_distributed else model_t.get_feat_modules()[-1]
+        cls_t = model_cls.module.get_feat_modules()[-1] if opt.multiprocessing_distributed else model_t.get_feat_modules()[-1]
         
         # cls + kl div
         loss_cls = criterion_cls(logit_s, labels)

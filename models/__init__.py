@@ -1,5 +1,5 @@
 from .resnet import resnet38, resnet110, resnet116, resnet14x2, resnet38x2, resnet110x2
-from .resnet import resnet8x4, resnet14x4, resnet32x4, resnet38x4
+from .resnet import resnet8x4, resnet14x4, resnet32x4, resnet38x4, resnet110x4
 from .vgg import vgg8_bn, vgg13_bn
 from .mobilenetv2 import mobile_half, mobile_half_double
 from .ShuffleNetv1 import ShuffleV1
@@ -17,6 +17,7 @@ model_dict = {
     'resnet14x2': resnet14x2,
     'resnet38x2': resnet38x2,
     'resnet110x2': resnet110x2,
+    'resnet110x4': resnet110x4,
     'resnet8x4': resnet8x4,
     'resnet14x4': resnet14x4,
     'resnet32x4': resnet32x4,

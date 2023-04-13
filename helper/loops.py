@@ -4,6 +4,7 @@ from cProfile import label
 import sys
 import time
 from models.resnet import resnet38x4
+from models import model_dict
 import torch
 from .util import AverageMeter, accuracy, reduce_tensor
 
@@ -75,7 +76,7 @@ def train_distill(epoch, train_loader, module_list, criterion_list, optimizer, o
 
     model_s = module_list[0]
     model_t = module_list[-1]
-    model_cls = resnet38x4(100)
+    model_cls = model_dict["resnet38x4"](num_classes=100)
     model_path = "./save/teachers/models/resnet38x4_vanilla/resnet38x4_best"
     model_cls.load_state_dict(torch.load(model_path, map_location={'cuda:0': 'cuda:0'})['model'])
 

@@ -76,8 +76,8 @@ def train_distill(epoch, train_loader, module_list, criterion_list, optimizer, o
 
     model_s = module_list[0]
     model_t = module_list[-1]
-    model_cls = model_dict["resnet38x4"](num_classes=100)
-    model_path = "./save/teachers/models/resnet38x4_vanilla/resnet38x4_best.pth"
+    model_cls = model_dict["resnet110x4"](num_classes=100)
+    model_path = "./save/teachers/models/resnet110x4_vanilla/resnet110x4_best.pth"
     model_cls.load_state_dict(torch.load(model_path, map_location={'cuda:0': 'cuda:0'})['model'])
 
     batch_time = AverageMeter()

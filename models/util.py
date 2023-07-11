@@ -231,6 +231,7 @@ class SimKD(nn.Module):
         # Prediction via Teacher Classifier
         temp_feat = self.avg_pool(trans_feat_s)
         temp_feat = temp_feat.view(temp_feat.size(0), -1)
+        print(temp_feat)
         pred_feat_s = cls_t(temp_feat)
         
         return trans_feat_s, trans_feat_t, pred_feat_s
